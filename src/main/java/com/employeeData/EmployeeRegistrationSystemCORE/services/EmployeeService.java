@@ -20,7 +20,7 @@ public class EmployeeService implements EmployeeRegistrationable {
     @Override
     public boolean registerEmployee(Employee e) {
         try{
-            System.out.printl("Start registrating a new employee...");
+            System.out.println("Start registrating a new employee...");
             repository.save(e);
             return true;
         }catch(Exception ex){
