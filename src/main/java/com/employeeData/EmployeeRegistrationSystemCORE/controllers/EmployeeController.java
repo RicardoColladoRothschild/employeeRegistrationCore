@@ -1,0 +1,10 @@
+package com.employeeData.EmployeeRegistrationSystemCORE.controllers;
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+}
