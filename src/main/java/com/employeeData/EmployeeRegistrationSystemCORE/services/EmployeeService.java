@@ -1,7 +1,7 @@
 package com.employeeData.EmployeeRegistrationSystemCORE.services;
 
 
-import com.employeeData.EmployeeRegistrationSystemCORE.contracts.EmployeeRegistrationable;
+import com.employeeData.EmployeeRegistrationSystemCORE.Interfaces.EmployeeRegistrationable;
 import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 import com.employeeData.EmployeeRegistrationSystemCORE.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

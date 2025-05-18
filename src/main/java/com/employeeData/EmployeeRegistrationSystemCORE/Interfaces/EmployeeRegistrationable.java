@@ -1,4 +1,4 @@
-package com.employeeData.EmployeeRegistrationSystemCORE.contracts;
+package com.employeeData.EmployeeRegistrationSystemCORE.Interfaces;
 
 import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 
