@@ -1,11 +1,14 @@
 package com.employeeData.EmployeeRegistrationSystemCORE.services;
 
 
+import com.employeeData.EmployeeRegistrationSystemCORE.ErrorHandler.exceptions.EmployeeAlreadyExistException;
 import com.employeeData.EmployeeRegistrationSystemCORE.Interfaces.EmployeeRegistrationable;
 import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 import com.employeeData.EmployeeRegistrationSystemCORE.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EmployeeService implements EmployeeRegistrationable {
@@ -20,7 +23,14 @@ public class EmployeeService implements EmployeeRegistrationable {
     @Override
     public boolean registerEmployee(Employee e) {
         try{
-            System.out.println("Start registrating a new employee...");
+            System.out.println("[O] - Start registering a new employee.");
+
+            Optional<Employee> existingEmployee = repository.findByEmail(e.getEmail());
+
+            if (existingEmployee.isPresent()) {
+
+                throw new EmployeeAlreadyExistException("Employee already exists with email: " + e.getEmail());
+            }
             repository.save(e);
             return true;
         }catch(Exception ex){
