@@ -25,7 +25,7 @@ public class EmployeeService implements EmployeeRegistrationable {
         try{
             System.out.println("[O] - Start registering a new employee.");
 
-            Optional<Employee> existingEmployee = repository.findByEmail(e.getEmail());
+            Optional<Employee> existingEmployee = Optional.ofNullable(repository.findByEmail(e.getEmail()));
 
             if (existingEmployee.isPresent()) {
 
