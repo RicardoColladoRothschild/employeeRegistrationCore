@@ -4,6 +4,7 @@ package com.employeeData.EmployeeRegistrationSystemCORE.controllers;
 import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 import com.employeeData.EmployeeRegistrationSystemCORE.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody Employee employee){
-        boolean sucess = service.registerEmployee(employee);
-            //TODO: @Ricardo create a "error handling library" that we could passa an error type, as an exception and
-            //it return a prepare message
-        return "";
+    public ResponseEntity<String> register(@RequestBody Employee employee){
+        service.registerEmployee(employee);
+        return ResponseEntity.ok("Employee Registered");
     }
 }
