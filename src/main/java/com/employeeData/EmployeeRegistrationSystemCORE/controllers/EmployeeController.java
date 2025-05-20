@@ -1,6 +1,7 @@
 package com.employeeData.EmployeeRegistrationSystemCORE.controllers;
 
 
+import com.employeeData.EmployeeRegistrationSystemCORE.ErrorHandler.exceptions.EmployeeAlreadyExistException;
 import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 import com.employeeData.EmployeeRegistrationSystemCORE.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,12 @@ public class EmployeeController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Employee employee){
-        service.registerEmployee(employee);
-        return ResponseEntity.ok("Employee Registered");
+        try {
+            service.registerEmployee(employee);
+            return ResponseEntity.ok("Employee Registered");
+        } catch (EmployeeAlreadyExistException ex) {
+            System.out.println("[X] Controller Level - Employee already exist");
+            return ResponseEntity.status(409).body(ex.getMessage());
+        }
     }
 }

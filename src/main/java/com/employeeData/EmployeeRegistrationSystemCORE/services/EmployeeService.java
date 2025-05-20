@@ -22,20 +22,16 @@ public class EmployeeService implements EmployeeRegistrationable {
 
     @Override
     public boolean registerEmployee(Employee e) {
-        try{
-            System.out.println("[O] - Start registering a new employee.");
+        System.out.println("[O] - Start registering a new employee.");
 
-            Optional<Employee> existingEmployee = Optional.ofNullable(repository.findByEmail(e.getEmail()));
+        Optional<Employee> existingEmployee = Optional.ofNullable(repository.findByEmail(e.getEmail()));
 
-            if (existingEmployee.isPresent()) {
-
-                throw new EmployeeAlreadyExistException("Employee already exists with email: " + e.getEmail());
-            }
-            repository.save(e);
-            return true;
-        }catch(Exception ex){
-            ex.printStackTrace();
-            return false;
+        if (existingEmployee.isPresent()) {
+            throw new EmployeeAlreadyExistException("Employee already exists with email: " + e.getEmail());
         }
+
+        repository.save(e);
+        System.out.println("[O] - Employee registered successfully.");
+        return true;
     }
 }
