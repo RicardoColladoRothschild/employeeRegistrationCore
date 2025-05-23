@@ -7,17 +7,19 @@ import com.employeeData.EmployeeRegistrationSystemCORE.models.Employee;
 import com.employeeData.EmployeeRegistrationSystemCORE.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 @Service
 public class EmployeeService implements EmployeeRegistrationable {
 
     private final EmployeeRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EmployeeService(EmployeeRepository repository) {
+    public EmployeeService(EmployeeRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -30,6 +32,8 @@ public class EmployeeService implements EmployeeRegistrationable {
             throw new EmployeeAlreadyExistException("Employee already exists with email: " + e.getEmail());
         }
 
+        String hashedPassword = passwordEncoder.encode(e.getPassword());
+        e.setPassword(hashedPassword);
         repository.save(e);
         System.out.println("[O] - Employee registered successfully.");
         return true;
